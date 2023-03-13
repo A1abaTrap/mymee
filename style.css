@@ -33,3 +33,10 @@ label{
 	margin-bottom: 5px;
     padding-left: 20px;
 }
+.logo {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	width: 80px;
+	height: 80px;
+  }
