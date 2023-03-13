@@ -12,19 +12,16 @@ label{
 }
 @media screen and (min-width: 768px) {
 	body {
-		background-color: rgb(21, 255, 0);
 	  zoom: 125%;
 	}
 }
 @media (min-width:740px) and (max-width:1023px){
 	body{
-		background-color: aqua;
 		zoom: 125%;
 	}
 }
 @media (max-width:740px){
 	body{
-		background-color: rgb(255, 0, 0);
-		zoom: 125%;
+	zoom: 125%;
 	}
 }
