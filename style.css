@@ -10,7 +10,7 @@ label{
 	color: blue;
 	font-size: 30px;
 }
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
 	body {
 	  zoom: 125%;
 	}
@@ -28,7 +28,7 @@ label{
 .form-check-input {
     transform: scale(3);
 
-}
+} */
 .form-check-label {
 	margin-bottom: 5px;
     padding-left: 20px;
