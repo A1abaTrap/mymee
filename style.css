@@ -39,4 +39,7 @@ label{
 	left: 10px;
 	width: 80px;
 	height: 80px;
-  }
+}
+.form-control{
+	font-size: 35px;
+}
