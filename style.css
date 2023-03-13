@@ -25,3 +25,7 @@ label{
 	zoom: 125%;
 	}
 }
+.form-check-input {
+    transform: scale(3);
+
+}
