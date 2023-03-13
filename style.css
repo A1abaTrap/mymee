@@ -1,0 +1,12 @@
+
+.container h1{
+	color: rgb(0, 17, 255);
+	text-align: center;
+	font-size: 70px;
+
+}
+
+label{
+	color: blue;
+	font-size: 30px;
+}
