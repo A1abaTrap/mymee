@@ -1,45 +1,58 @@
-
 .container h1{
 	color: rgb(255, 137, 2);
 	text-align: center;
-	font-size: 70px;
-
-}
-
-label{
+	font-size: 3vw;
+	margin-top: 1vw;
+	margin-bottom: 2vw;
+	}
+	
+	label{
 	color: blue;
-	font-size: 30px;
-}
-/* @media screen and (min-width: 768px) {
-	body {
-	  zoom: 125%;
+	font-size: 3vw;
 	}
-}
-@media (min-width:740px) and (max-width:1023px){
-	body{
-		zoom: 125%;
+	
+	.form-check-input {
+	transform: scale(2.5);
 	}
-}
-@media (max-width:740px){
-	body{
-	zoom: 125%;
+	.form-check-label {
+	font-size: 2.5vw;
+	margin-bottom: 2vw;
+	padding-left: 3vw;
 	}
-}
-.form-check-input {
-    transform: scale(3);
-
-} */
-.form-check-label {
-	margin-bottom: 5px;
-    padding-left: 20px;
-}
-.logo {
-	position: fixed;
-	top: 10px;
-	left: 10px;
-	width: 310px;
-	height: 110px;
-  }
-.form-control{
-	font-size: 35px;
-}
+	
+	.form-control{
+	font-size: 3vw;
+	margin-bottom: 2vw;
+	}
+	
+	.logo {
+	max-width: 50vw;
+	height: auto;
+	}
+	
+	@media screen and (min-width: 576px) {
+	.container h1 {
+	font-size: 3rem;
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	}
+	label {
+		font-size: 1.5rem;
+	}
+	
+	.form-check-label {
+		font-size: 1.2rem;
+		margin-bottom: 1rem;
+		padding-left: 2rem;
+	}
+	
+	.form-control {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+	
+	.logo {
+		max-width: 300px;
+	}
+	}
+	
