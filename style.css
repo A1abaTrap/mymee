@@ -26,8 +26,9 @@
 	}
 	
 	.logo {
-	max-width: 50vw;
+/* 	max-width: 50vw; */
 	height: auto;
+	cursor: pointer;
 	}
 	
 	@media screen and (min-width: 576px) {
