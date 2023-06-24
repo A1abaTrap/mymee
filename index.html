@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Realtime Clock</title>
+  <style>
+    #notification {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.5s linear;
+    }
+
+    .show-notification {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #notification-content {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    var notificationElement = document.getElementById('notification');
+    var notificationContentElement = document.getElementById('notification-content');
+
+    function showNotification() {
+      notificationElement.classList.add('show-notification');
+      setTimeout(function () {
+        notificationElement.classList.remove('show-notification');
+      }, 3000);
+    }
+
+    function updateTime() {
+      var currentTime = new Date();
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+      var seconds = currentTime.getSeconds();
+
+      var formattedTime = hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+
+      notificationContentElement.innerText = formattedTime;
+
+      showNotification();
+    }
+
+    setInterval(updateTime, 1000);
+  </script>
+
+  <div id="notification">
+    <span id="notification-content"></span>
+  </div>
+</body>
+</html>
