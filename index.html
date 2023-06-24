@@ -1,2 +1,47 @@
 <h1>Trang Web đã có phiên bản nâng cấp vui lòng qua trang web mới bằng đường link dưới đây</h1>
 <a href="https://a1abatrap.github.io/meme/">👉 Trang web mới đây 👈</a>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hiển thị thời gian thực của Việt Nam</title>
+  <style>
+    #real-time {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Thời gian thực của Việt Nam</h1>
+  <div id="real-time"></div>
+
+  <script>
+    function updateTime() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://worldtimeapi.org/api/timezone/Asia/Ho_Chi_Minh', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          var datetime = response.datetime;
+
+          // Chuyển đổi định dạng thời gian từ ISO 8601 thành định dạng hh:mm:ss
+          var currentTime = new Date(datetime);
+          var hours = currentTime.getHours();
+          var minutes = currentTime.getMinutes();
+          var seconds = currentTime.getSeconds();
+
+          var formattedTime = hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+
+          // Cập nhật nội dung của phần tử có id "real-time" với thời gian mới
+          document.getElementById("real-time").innerHTML = formattedTime;
+        }
+      };
+      xhr.send();
+    }
+
+    // Cập nhật thời gian mỗi giây
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
+
