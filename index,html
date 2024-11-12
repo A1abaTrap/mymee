@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Địa điểm trên bản đồ</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vị trí của bạn và các địa điểm trên bản đồ</h1>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Khởi tạo bản đồ
+    var map = L.map('map').setView([10.9274331,108.2820563], 11); // Vị trí trung tâm là của bạn
+
+    // Dùng OpenStreetMap làm bản đồ nền
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    // Tọa độ vị trí của bạn
+    var userLocation = [10.9274331,108.2820563];
+
+    // Tọa độ các địa điểm
+    var locations = [
+      { lat: 10.9305416, lng: 108.0990914, title: 'Bánh Căn Lân Nguyệt' },
+      { lat: 10.9253673, lng: 108.1047055, title: 'Chả Cuốn Cá Trích' },
+      { lat: 10.9271383, lng: 108.097806, title: 'Bánh Mì Chờ' },
+      { lat: 10.939273, lng: 108.1053881, title: 'Ốc Tô Ba Tư' },
+      { lat: 10.9258851, lng: 108.09659, title: 'Chợ Phan Thiết' },
+      { lat: 10.9369272, lng: 108.1089495, title: 'Chả Lụi Thanh Hương' },
+      { lat: 10.9313256, lng: 108.1587627, title: 'Dốc Hoàng Hôn' },
+      { lat: 10.9535147, lng: 108.2167261, title: 'Bờ Kè Mr Crab },
+      { lat: 21.0370, lng: 105.8620, title: 'Địa điểm 9' },
+      { lat: 21.0380, lng: 105.8630, title: 'Địa điểm 10' },
+      { lat: 21.0390, lng: 105.8640, title: 'Địa điểm 11' },
+      { lat: 21.0400, lng: 105.8650, title: 'Địa điểm 12' },
+      { lat: 21.0410, lng: 105.8660, title: 'Địa điểm 13' },
+      { lat: 21.0420, lng: 105.8670, title: 'Địa điểm 14' },
+      { lat: 21.0430, lng: 105.8680, title: 'Địa điểm 15' },
+      { lat: 21.0440, lng: 105.8690, title: 'Địa điểm 16' },
+      { lat: 21.0450, lng: 105.8700, title: 'Địa điểm 17' },
+      { lat: 21.0460, lng: 105.8710, title: 'Địa điểm 18' }
+    ];
+
+    // Đánh dấu vị trí của bạn
+    L.marker(userLocation).addTo(map)
+      .bindPopup('Vị trí của bạn')
+      .openPopup();
+
+    // Đánh dấu các địa điểm
+    locations.forEach(function(location) {
+      L.marker([location.lat, location.lng]).addTo(map)
+        .bindPopup(location.title);
+    });
+  </script>
+</body>
+</html>
