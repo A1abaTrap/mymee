@@ -12,19 +12,19 @@
   </style>
 </head>
 <body>
-  <h1>Hẹn hò kỷ Niệm 1 Năm Yêu Nhau Ở Mũi Né của chú rể Hoài Thương ♥️ cô dâu Bảo Ngân</h1>
+  <h1>Vị trí của bạn và các địa điểm trên bản đồ</h1>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Khởi tạo bản đồ
-    var map = L.map('map').setView([10.9274331,108.2820563], 11); // Vị trí trung tâm là của bạn
+    var map = L.map('map').setView([10.9274331, 108.2820563], 11);
 
     // Dùng OpenStreetMap làm bản đồ nền
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     // Tọa độ vị trí của bạn
-    var userLocation = [10.9274331,108.2820563];
+    var userLocation = [10.9274331, 108.2820563];
 
     // Tọa độ các địa điểm
     var locations = [
@@ -36,26 +36,42 @@
       { lat: 10.9369272, lng: 108.1089495, title: 'Chả Lụi Thanh Hương' },
       { lat: 10.9313256, lng: 108.1587627, title: 'Dốc Hoàng Hôn' },
       { lat: 10.9535147, lng: 108.2167261, title: 'Bờ Kè Mr Crab' },
-      { lat: 21.0370, lng: 105.8620, title: 'Địa điểm 9' },
-      { lat: 21.0380, lng: 105.8630, title: 'Địa điểm 10' },
-      { lat: 21.0390, lng: 105.8640, title: 'Địa điểm 11' },
-      { lat: 21.0400, lng: 105.8650, title: 'Địa điểm 12' },
-      { lat: 21.0410, lng: 105.8660, title: 'Địa điểm 13' },
-      { lat: 21.0420, lng: 105.8670, title: 'Địa điểm 14' },
-      { lat: 21.0430, lng: 105.8680, title: 'Địa điểm 15' },
-      { lat: 21.0440, lng: 105.8690, title: 'Địa điểm 16' },
-      { lat: 21.0450, lng: 105.8700, title: 'Địa điểm 17' },
-      { lat: 21.0460, lng: 105.8710, title: 'Địa điểm 18' }
+      { lat: 10.9535582, lng: 108.2181237, title: 'Casa Muine' },
+      { lat: 10.9551629, lng: 108.2272229, title: 'Quán Thùng Gỗ' },
+      { lat: 10.9323551, lng: 108.1299207, title: 'Ốc Sò' },
+      { lat: 10.6998881, lng: 107.9927804, title: 'Mũi Kê Gà' },
+      { lat: 10.9367366, lng: 108.1844165, title: 'Bãi Đá Ông Địa' },
+      { lat: 10.9410854, lng: 108.2791503, title: 'Làng Chài Mũi Né' },
+      { lat: 11.2257481, lng: 108.8278158, title: 'Hòn Cau' },
+      { lat: 10.9496199, lng: 108.2598284, title: 'Hanna Beach' },
+      { lat: 10.9212407, lng: 108.1108082, title: 'Cafe Bồng Bềnh' },
+      { lat: 10.9413553, lng: 108.1925443, title: 'Đường Xuống Biển' }
     ];
 
-    // Đánh dấu vị trí của bạn
-    L.marker(userLocation).addTo(map)
+    // Biểu tượng trung tâm có màu khác
+    var centralIcon = L.icon({
+      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-green.png', // Màu xanh lá cho trung tâm
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+    });
+
+    // Biểu tượng mặc định cho các địa điểm khác
+    var defaultIcon = L.icon({
+      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png', // Màu xanh lam
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+    });
+
+    // Đánh dấu vị trí của bạn với màu xanh lá
+    L.marker(userLocation, { icon: centralIcon }).addTo(map)
       .bindPopup('Vị trí của bạn')
       .openPopup();
 
-    // Đánh dấu các địa điểm
+    // Đánh dấu các địa điểm khác
     locations.forEach(function(location) {
-      L.marker([location.lat, location.lng]).addTo(map)
+      L.marker([location.lat, location.lng], { icon: defaultIcon }).addTo(map)
         .bindPopup(location.title);
     });
   </script>
