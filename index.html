@@ -10,15 +10,31 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     #map {
-      height: 100vh;
+      height: 90vh;
+    }
+    #startButton {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #startButton:disabled {
+      background-color: #888;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
   <h1>Hẹn Hò Kỷ Niệm 1 Năm Yêu Nhau Tại Múi Né Của Chú rể Hoài Thương ❤ Cô dâu Bảo Ngân </h1>
   <div id="map"></div>
+  <button id="startButton" disabled>Bắt đầu hành trình</button>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
   <script>
     // Khởi tạo bản đồ
     var map = L.map('map').setView([10.9274331, 108.2820563], 11);
@@ -42,10 +58,9 @@
       { lat: 10.9535582, lng: 108.2181237, title: 'Casa Muine' },
       { lat: 10.9551629, lng: 108.2272229, title: 'Quán Thùng Gỗ' },
       { lat: 10.9323551, lng: 108.1299207, title: 'Ốc Sò' },
-      { lat: 10.6998881, lng: 107.9927804, title: 'Mũi Kê Gà' },
+      { lat: 10.9196198, lng: 108.1096473, title: 'Tiệm Cafe Ven Biển' },
       { lat: 10.9367366, lng: 108.1844165, title: 'Bãi Đá Ông Địa' },
       { lat: 10.9410854, lng: 108.2791503, title: 'Làng Chài Mũi Né' },
-      { lat: 11.2257481, lng: 108.8278158, title: 'Hòn Cau' },
       { lat: 10.9496199, lng: 108.2598284, title: 'Hanna Beach' },
       { lat: 10.9212407, lng: 108.1108082, title: 'Cafe Bồng Bềnh' },
       { lat: 10.9413553, lng: 108.1925443, title: 'Đường Xuống Biển' }
@@ -53,7 +68,7 @@
 
     // Biểu tượng trung tâm có màu xanh lá
     var centralIcon = L.icon({
-      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', // Màu xanh lá cho trung tâm
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
@@ -61,21 +76,75 @@
 
     // Biểu tượng mặc định cho các địa điểm khác
     var defaultIcon = L.icon({
-      iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png', // Màu xanh lam
+      iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
     });
 
-    // Đánh dấu vị trí của bạn với màu xanh lá
+    // Đánh dấu vị trí trung tâm với màu xanh lá
     L.marker(userLocation, { icon: centralIcon }).addTo(map)
-      .bindPopup('Vị trí của bạn')
-      .openPopup();
+      .bindTooltip('Vị trí của bạn', { permanent: true, direction: 'right' });
 
-    // Đánh dấu các địa điểm khác
+    // Khởi tạo biến cho tuyến đường và marker xe
+    var currentRoute = null;
+    var carMarker = null;
+    var routeCoordinates = [];
+
+    // Đánh dấu các địa điểm và thêm sự kiện chỉ đường khi click
     locations.forEach(function(location) {
-      L.marker([location.lat, location.lng], { icon: defaultIcon }).addTo(map)
-        .bindPopup(location.title);
+      var marker = L.marker([location.lat, location.lng], { icon: defaultIcon }).addTo(map)
+        .bindTooltip(location.title, { permanent: true, direction: 'right' });
+
+      marker.on('click', function() {
+        // Xoá tuyến đường cũ nếu có
+        if (currentRoute) {
+          map.removeControl(currentRoute);
+        }
+        
+        // Tạo tuyến đường mới và lưu các tọa độ
+        currentRoute = L.Routing.control({
+          waypoints: [
+            L.latLng(userLocation[0], userLocation[1]),
+            L.latLng(location.lat, location.lng)
+          ],
+          routeWhileDragging: false,
+          show: false,
+          addWaypoints: false,
+          createMarker: function() { return null; }
+        }).addTo(map);
+
+        currentRoute.on('routesfound', function(e) {
+          routeCoordinates = e.routes[0].coordinates;
+          document.getElementById("startButton").disabled = false;
+        });
+      });
+    });
+
+    // Di chuyển xe theo tuyến đường
+    document.getElementById("startButton").addEventListener("click", function() {
+      if (carMarker) {
+        map.removeLayer(carMarker);
+      }
+
+      var index = 0;
+      carMarker = L.marker(userLocation, {
+        icon: L.icon({
+          iconUrl: 'https://a1abatrap.github.io/mymee/scooter.png', // Icon xe ô tô
+          iconSize: [40, 40]
+        })
+      }).addTo(map);
+
+      function moveCar() {
+        if (index < routeCoordinates.length) {
+          carMarker.setLatLng(routeCoordinates[index]);
+          index++;
+          setTimeout(moveCar, 100); // Tốc độ di chuyển (100ms mỗi bước)
+        }
+      }
+
+      moveCar();
+      document.getElementById("startButton").disabled = true;
     });
   </script>
 </body>
