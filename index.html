@@ -87,7 +87,7 @@
 
     // Đánh dấu vị trí trung tâm với màu xanh lá
     L.marker(userLocation, { icon: centralIcon }).addTo(map)
-      .bindTooltip('Vị trí của bạn', { permanent: true, direction: 'right' });
+      .bindTooltip('Vị trí của bạn', { permanent: true, direction: 'bottom' });
 
     // Khởi tạo biến cho tuyến đường và marker xe
     var currentRoute = null;
@@ -97,7 +97,7 @@
     // Đánh dấu các địa điểm và thêm sự kiện chỉ đường khi click
     locations.forEach(function(location) {
       var marker = L.marker([location.lat, location.lng], { icon: defaultIcon }).addTo(map)
-        .bindTooltip(location.title, { permanent: true, direction: 'right' });
+        .bindTooltip(location.title, { permanent: true, direction: 'bottom' });
 
       marker.on('click', function() {
         // Xoá tuyến đường cũ nếu có
